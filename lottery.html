@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+
+	<title>Lottery Odds</title>
+
+	<!--  -->
+
+
+	<style>
+		.pagecontent {
+			padding: 100px;
+		}
+		
+		#answer {
+			font-size: 15px;
+			color: #011936;
+		}
+		
+		#send {
+			background-color: #ed254e;
+			border: none;
+		}
+		
+		#white {
+			background-color: #071013;
+			text-align: center;
+			font-size: 45px;
+			color: white;
+			padding: 50px;
+		}
+		
+		body {
+			background-color: #22aed1;
+		}
+	</style>
+
+</head>
+
+<body>
+	<div id="pagecontent" class="pagecontent">
+
+
+		<h2>What are my odds?</h2>
+		<p>If I purchase a number of lottery tickets each day, how many days will I have to purchase that many tickets to have one expectation of winning? </p>
+		<label>If I buy </label>
+		<input type="text" id="numTickets" placeholder="number of" />
+		<label> tickets</label>
+		<br/>
+		<br/>
+		<button type="button" class="btn btn-info" id="send" onclick="calcOdds()">Calculate!</button>
+		<div id="answer"></div>
+	</div>
+
+
+	<div class="row" id="white">
+		<div class="col-sm-3">
+			<span class="glyphicon glyphicon-plus"></span></div>
+		<div class="col-sm-3">
+			<span class="glyphicon glyphicon-minus"></span></div>
+		<div class="col-sm-3">
+			<span class="glyphicon glyphicon-asterisk"></span></div>
+		<div class="col-sm-3">
+			<span class="glyphicon glyphicon-check"></span></div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	<script>
+		//for enter press
+		$(document).keypress(function (e) {
+			if (e.which == 13) {
+				calcOdds();
+			}
+		});
+
+		//this is a function that takes in the user input //and returns the calculation
+		function calcOdds() {
+
+			//odds of winning
+			var m = 350000000;
+
+			//first get user input, defined as var x  
+			var input = document.getElementById('numTickets');
+			var x = input.value;
+			console.log('this is what the user entered ' + x);
+
+			//check if input is a valid integer
+
+			var int = isNaN(x);
+			console.log('is this a not-a-number? ' + int);
+
+			//if valid, run this
+			if (int == false) {
+				//run equation
+				var dy = m / x;
+				console.log('tickets per day ' + dy);
+				//conersion to years, 1 day * 365.27777777778 = 1 year
+				var yr = dy / 365.27777777778;
+				console.log('tickets per year ' + yr);
+				//cost per day
+				var cost = x * 1
+				console.log('cost per day ' + cost);
+
+				document.getElementById('answer').innerHTML = 'days = ' + dy + '<br/>' + 'years = ' + yr + '<br/> If it costs $1/ticket, this method would cost $' + cost + '/day. ';
+
+				//if not valid number, do this	
+			}
+			if (int == true) {
+				//print error message
+				window.alert('Please enter a valid number');
+
+			}
+		}
+	</script>
+</body>
+
+</html>
